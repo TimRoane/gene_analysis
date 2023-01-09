@@ -1,0 +1,30 @@
+ncbi-acc-download -F genbank NC_000016.10
+ncbi-acc-download -F fasta NC_000016.10
+ncbi-acc-download -F gff3  NC_000016.10
+
+
+#FOR SPECIFIC GENE
+#Filter for specific gene on chromosome 10
+grep GeneID:3039 NC_000016.10.gff -w > LOC3039.gff
+#Remove unwanted transcripts
+grep -v X2 LOC3039.gff > LOC3039.notX2.gff
+
+#Sort the entries
+gt gff3 -sort -tidy -force -o LOC3039.sorted.gff LOC3039.notX2.gff
+gt stat -genelengthdistri -exonlengthdistri -intronlengthdistri -cdslengthdistri -addintrons -force -o LOC3039.sorted.counts.gff LOC3039.sorted.gff
+
+#Get all the CDS of the haeomoglobin X1 in GFF
+grep CDS LOC3039.notX2.gff > LOC3039.X1.cds.gff
+#Get the fasta sequence of the CDS
+bedtools getfasta -s -fi NC_000016.10.fa -fo LOC3039.X1.cds.fa -bed LOC3039.X1.cds.gff
+
+#Combine multiple exons into one nt sequence
+union LOC3039.X1.cds.fa -outseq LOC3039.X1.cds.union.fa
+#Translate fasta NT sequence to AA sequence
+transeq LOC3039.X1.cds.union.fa -outseq LOC3039.X1.aa.fa
+
+
+#FOR WHOLE CHROMOSOME
+gt gff3 -sort -tidy -force -o NC_000016.10.sorted.gff NC_000016.10.gff
+gt stat -genelengthdistri -exonlengthdistri -intronlengthdistri -cdslengthdistri -addintrons -force -o NC_000016.10.sorted.counts.gff NC_000016.10.sorted.gff
+less NC_000016.10.sorted.counts.gff

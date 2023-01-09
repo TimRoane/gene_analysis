@@ -1,0 +1,21 @@
+parsed genome node DAGs: 2
+sequence regions: 1 (total length: 843)
+multi-features: 1
+genes: 1
+protein-coding genes: 1
+mRNAs: 1
+protein-coding mRNAs: 1
+exons: 3
+CDSs: 3
+introns: 2
+gene length distribution:
+843: 1 (prob=1.0000,cumulative=1.0000)
+exon length distribution:
+132: 1 (prob=0.3333,cumulative=0.3333)
+205: 1 (prob=0.3333,cumulative=0.6667)
+240: 1 (prob=0.3333,cumulative=1.0000)
+intron length distribution:
+117: 1 (prob=0.5000,cumulative=0.5000)
+149: 1 (prob=0.5000,cumulative=1.0000)
+CDS length distribution:
+429: 1 (prob=1.0000,cumulative=1.0000)
